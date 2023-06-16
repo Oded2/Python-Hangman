@@ -1,17 +1,23 @@
 import random
-
+import json
 words = ["zebra", "alpha", "pinkie"]
 word_chosen = random.choice(words)
 
+data = ""
+with open("settings.json", 'r') as f:
+    data = json.load(f)
 
-def getfinal(word, indexes):
+placeholder = data["placeholder"]
+
+
+def getfinal(word, indexes, placeholder):
     final_word = ""
     for i in range(len(word)):
         current = word[i]
         if i in indexes:
             final_word += current
         else:
-            final_word += "_"
+            final_word += placeholder
     return final_word
 
 # getfinal("hello", 2)
@@ -36,7 +42,7 @@ def arrayAppend(arrayA, arrayB):
 
 
 def play(word):
-    user_final = getfinal(word, [])
+    user_final = getfinal(word, [], placeholder)
     final_indexes = []
     while user_final != word:
         print(user_final)
@@ -48,7 +54,7 @@ def play(word):
             break
         a = findindex(word, user_letter)
         final_indexes = arrayAppend(final_indexes, a)
-        user_final = getfinal(word, final_indexes)
+        user_final = getfinal(word, final_indexes, placeholder)
     print(user_final)
     print("Congratulations, you won!")
 
