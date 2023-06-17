@@ -90,6 +90,7 @@ def play(wordArr, tries):
             print(f"The definition is {definition}")
         if tries == 0:
             print(f'You failed, the word was "{word}"')
+            enterToContinue()
             exit()
 
         user_letter = input("Place your guess ").lower()
