@@ -8,7 +8,7 @@ default_settings = {
     "hints": True
 }
 
-settings_file = "settings.json"
+settings_file = "./settings.json"
 with open(settings_file, 'w') as f:
     json.dump(default_settings, f)
 
