@@ -1,5 +1,7 @@
 {
-  "placeholder": "_",
-  "min_len": 0,
-  "max_len": 100
+    "placeholder": "_",
+    "min_len": 0,
+    "max_len": 100,
+    "max_tries": 10,
+    "hints": true
 }

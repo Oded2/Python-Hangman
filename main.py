@@ -12,6 +12,12 @@ with open("settings.json", 'r') as f:
 placeholder = settings["placeholder"]
 min_len = settings["min_len"]
 max_len = settings["max_len"]
+max_tries = settings["max_tries"]
+hints = settings["hints"]
+
+
+def enterToContinue():
+    input("Press ENTER to continue ")
 
 
 def chooseWord(wordsFile, min_len, max_len):
@@ -54,23 +60,51 @@ def arrayAppend(arrayA, arrayB):
     return final
 
 
-def play(word):
+def arrayStringify(arr):
+    final = ""
+    for i in range(len(arr)):
+        current = arr[i]
+        if i == len(arr)-1:
+            final += str(current) + " "
+        else:
+            final += str(current) + ", "
+
+    return final
+
+
+def play(wordArr, tries):
+    word = wordArr[0]
+    definition = wordArr[1]
     user_final = getfinal(word, [], placeholder)
     final_indexes = []
+    letters_used = []
+    ogTries = tries
+
     while user_final != word:
+
         print(user_final)
+        if len(letters_used) != 0:
+            print(f"Incorrect Letters: {arrayStringify(letters_used)}")
+        print(f"Tries left: {tries}")
+        if tries == int(ogTries/3) and hints:
+            print(f"The definition is {definition}")
+        if tries == 0:
+            print(f'You failed, the word was "{word}"')
+            exit()
 
         user_letter = input("Place your guess ").lower()
-
+        if user_letter not in word and user_letter not in letters_used:
+            letters_used.append(user_letter)
         if user_letter == word:
             user_final = word
             break
         a = findindex(word, user_letter)
         final_indexes = arrayAppend(final_indexes, a)
         user_final = getfinal(word, final_indexes, placeholder)
+        tries -= 1
     print(user_final)
     print("Congratulations, you won!")
 
 
 word_chosen = chooseWord(words_file, min_len, max_len)
-play(word_chosen[0])
+play(word_chosen, max_tries)
