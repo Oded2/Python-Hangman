@@ -94,19 +94,24 @@ def play(wordArr, tries):
             exit()
 
         user_letter = input("Place your guess ").lower()
-        if user_letter not in word and user_letter not in letters_used:
-            letters_used.append(user_letter)
+        if user_letter not in word:
+            if user_letter not in letters_used:
+                tries -= 1
+                letters_used.append(user_letter)
+            else:
+                print(f'You gussed the letter "{user_letter}".')
         if user_letter == word:
             user_final = word
             break
         a = findindex(word, user_letter)
         final_indexes = arrayAppend(final_indexes, a)
         user_final = getfinal(word, final_indexes, placeholder)
-        tries -= 1
+
     print(user_final)
     print("Congratulations, you won!")
 
 
 word_chosen = chooseWord(words_file, min_len, max_len)
+print("Word chosen: " + word_chosen[0])
 play(word_chosen, max_tries)
 enterToContinue()
