@@ -4,7 +4,7 @@ This is a simple hangman game implemented in Python. The game randomly selects a
 
 ## Prerequisites
 
-- Python 3.x
+- Python 3
 
 ## Installation
 
