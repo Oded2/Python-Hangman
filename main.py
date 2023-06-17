@@ -2,13 +2,28 @@ import random
 import json
 
 
-word_chosen = random.choice(english_words)
+words_file = "assets/words.json"
 
-data = ""
+
+settings = ""
 with open("settings.json", 'r') as f:
-    data = json.load(f)
+    settings = json.load(f)
 
-placeholder = data["placeholder"]
+placeholder = settings["placeholder"]
+min_len = settings["min_len"]
+max_len = settings["max_len"]
+
+
+def chooseWord(wordsFile, min_len, max_len):
+    with open(wordsFile, 'r') as f:
+        file = json.load(f)
+
+        entry = random.choice(file)
+        while max_len < len(entry["word"]) or min_len > len(entry["word"]):
+            entry = random.choice(file)
+        word_chosen = entry["word"]
+        definition = entry["definition"]
+    return [word_chosen, definition]
 
 
 def getfinal(word, indexes, placeholder):
@@ -21,14 +36,11 @@ def getfinal(word, indexes, placeholder):
             final_word += placeholder
     return final_word
 
-# getfinal("hello", 2)
-# >> __l__
-
 
 def findindex(word, letter):
     arr = []
     for i in range(len(word)):
-        if letter == word[i]:
+        if letter == word[i].lower():
             arr.append(i)
     return arr
 
@@ -48,7 +60,7 @@ def play(word):
     while user_final != word:
         print(user_final)
 
-        user_letter = input("Place your guess ")
+        user_letter = input("Place your guess ").lower()
 
         if user_letter == word:
             user_final = word
@@ -60,4 +72,5 @@ def play(word):
     print("Congratulations, you won!")
 
 
-play(word_chosen)
+word_chosen = chooseWord(words_file, min_len, max_len)
+play(word_chosen[0])
