@@ -1,7 +1,8 @@
 import random
 import json
-words = ["zebra", "alpha", "pinkie"]
-word_chosen = random.choice(words)
+
+
+word_chosen = random.choice(english_words)
 
 data = ""
 with open("settings.json", 'r') as f:
