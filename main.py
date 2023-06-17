@@ -108,3 +108,4 @@ def play(wordArr, tries):
 
 word_chosen = chooseWord(words_file, min_len, max_len)
 play(word_chosen, max_tries)
+enterToContinue()
