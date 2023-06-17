@@ -99,7 +99,7 @@ def play(wordArr, tries):
                 tries -= 1
                 letters_used.append(user_letter)
             else:
-                print(f'You guessed the letter "{user_letter}".')
+                print(f'You already guessed the letter "{user_letter}".')
         if user_letter == word:
             user_final = word
             break
